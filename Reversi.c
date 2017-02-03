@@ -6,10 +6,12 @@ typedef enum {WHT=-1, EMP=0, BLK=1, OUT=2} Piece;
 
 void Board_Init(void);          //”Õ–Ê‚Ì‰Šú‰»
 void Board_Output(void);        //”Õ–Ê‚Ìo—Í
-void Board_Scan_Pass(int player);    //ƒpƒX‚Ì—L–³’²¸
+int Board_Scan_Pass(int player);    //ƒpƒX‚Ì—L–³’²¸
 void Board_Input(int player);   //“ü—Íˆ—
 int Board_Suffice(void);        //”Õ–Ê‚ª‘S‚Ä–„‚Ü‚Á‚½‚©‚Ç‚¤‚©‚Ì”»’è
 void Game_Finish(void);         //ƒQ[ƒ€I—¹
+
+void Umetarou(int player);      //”Õ–Ê–„‚ß‘¾˜Y_(:3vÚ)_
 
 
 Piece board[BOARD_SIZE][BOARD_SIZE];
@@ -22,8 +24,6 @@ Piece board[BOARD_SIZE][BOARD_SIZE];
 int main(void){
     int player = BLK;
     
-    //int n = 0;  //“ü—Í‚ğ“r’†‚ÅI—¹‚³‚¹‚é•Ï”
-    
     Board_Init();
     Board_Output();
     
@@ -35,6 +35,7 @@ int main(void){
         }
         
         Board_Input(player);
+        //Umetarou(player);       //_(:3vÚ)_
         Board_Output();
         
         if( Board_Suffice() == 0 ){       //ƒQ[ƒ€I—¹”»’è(”Õ–Ê‚ª‘S‚Ä–„‚Ü‚Á‚½)
@@ -44,8 +45,10 @@ int main(void){
         
         player *= -1;
         
-        //if( n++ == 3 ) break;   //3‰ñ‚ÅI—¹
     }
+    
+    Game_Finish();
+    
     return 0;
 }
 
@@ -92,8 +95,31 @@ void Board_Output(void){
 //|||||||||||||||||||||||||||||||||||||||
 //ƒpƒX‚Ì—L–³’²¸
 //|||||||||||||||||||||||||||||||||||||||
-void Board_Scan_Pass(int player){
-    
+int Board_Scan_Pass(int player){
+    int i, j;
+    int n, m;
+    int k;
+    int flag;
+    for( i = 0; i < BOARD_SIZE; i++ ){
+        for( j = 0; j < BOARD_SIZE; j++ ){
+            if( board[i][j] != EMP ) continue;
+            
+            for( n = -1; n <= 1; n++ ){
+                for( m = -1; m <= 1; m++ ){
+                    if( n == 0 && m == 0 ) continue;
+                    flag = 0;
+                    k = 1;
+                    while(1){
+                        
+                        k++;
+                    }
+                    
+                    
+                }
+            }
+            
+        }
+    }
 }
 
 
@@ -139,7 +165,8 @@ int Board_Suffice(void){
 //ƒQ[ƒ€I—¹ˆ—
 //|||||||||||||||||||||||||||||||||||||||
 void Game_Finish(void){
-    int b = w = 0;
+    int b,w;
+    b = w = 0;
     int i, j;
     for( i = 0; i < BOARD_SIZE; i++ ){
         for( j = 0; j < BOARD_SIZE; j++ ){
@@ -149,8 +176,26 @@ void Game_Finish(void){
             }
         }
     }
-    printf("•F%d  ”’F%d\n");
+    printf("•F%d  ”’F%d\n",b,w);
     if( b > w )         printf("•‚ÌŸ—˜‚Å‚·I\n");
     else if( b < w )    printf("”’‚ÌŸ—˜‚Å‚·I\n");
     else                printf("ˆø‚«•ª‚¯\n");
+}
+
+
+
+//|||||||||||||||||||||||||||||||||||||||
+//”Õ–Ê–„‚ß‘¾˜Y_(:3vÚ)_
+//|||||||||||||||||||||||||||||||||||||||
+void Umetarou(int player){
+    int i, j;
+    
+    for( i = 0; i < BOARD_SIZE; i++ ){
+        for( j = 0; j < BOARD_SIZE; j++ ){
+            if( board[i][j] == EMP ){
+                board[i][j] = player;
+                return;
+            }
+        }
+    }
 }
